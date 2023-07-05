@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_HOST: ${DATABASE_HOST}
+      POSTGRES_USERNAME: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    networks:
+      - app
+  fudy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    networks:
+      - app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    command: [sh, -c, 'npm run start:dev']
+    volumes:
+      - .:/app:delegated
+      - /app/node_modules
+
+
+networks:
+  app:
