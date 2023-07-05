@@ -13,16 +13,17 @@ const validationOptions: ValidationPipeOptions = {
     new HttpException(
       {
         status: HttpStatus.UNPROCESSABLE_ENTITY,
-          message: 'There was an error processing your request please check the data sent',
-          errors: errors.reduce(
-              (accumulator, currentValue) => ({
-                  ...accumulator,
-                  [currentValue.property]: Object.values(
-                      currentValue.constraints ?? {},
-                  ).join(', '),
-              }),
-              {},
-          ),
+        message:
+          'There was an error processing your request please check the data sent',
+        errors: errors.reduce(
+          (accumulator, currentValue) => ({
+            ...accumulator,
+            [currentValue.property]: Object.values(
+              currentValue.constraints ?? {},
+            ).join(', '),
+          }),
+          {},
+        ),
       },
       HttpStatus.UNPROCESSABLE_ENTITY,
     ),

@@ -30,7 +30,6 @@ export type DatabaseConfig = {
   cert?: string;
 };
 
-
 export type AllConfigType = {
   app: AppConfig;
   auth: AuthConfig;

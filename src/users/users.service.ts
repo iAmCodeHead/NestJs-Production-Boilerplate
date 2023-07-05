@@ -24,5 +24,4 @@ export class UsersService {
       where: fields,
     });
   }
-
 }

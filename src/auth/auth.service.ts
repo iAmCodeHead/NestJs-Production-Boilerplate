@@ -17,20 +17,18 @@ export class AuthService {
     private usersService: UsersService,
   ) {}
 
-  async validateLogin(
-    loginDto: AuthEmailLoginDto,
-  ): Promise<LoginResponseType> {
+  async validateLogin(loginDto: AuthEmailLoginDto): Promise<LoginResponseType> {
     const user = await this.usersService.getOne({
       email: loginDto.email,
     });
 
-    if(!user) {
+    if (!user) {
       throw new HttpException(
-          {
-            status: HttpStatus.UNPROCESSABLE_ENTITY,
-            message: 'Invalid email or password',
-          },
-          HttpStatus.UNPROCESSABLE_ENTITY,
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          message: 'Invalid email or password',
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }
 
@@ -41,15 +39,15 @@ export class AuthService {
 
     if (!isValidPassword) {
       throw new HttpException(
-          {
-            status: HttpStatus.UNPROCESSABLE_ENTITY,
-            message: 'Invalid email or password',
-          },
-          HttpStatus.UNPROCESSABLE_ENTITY,
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          message: 'Invalid email or password',
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }
 
-    const token = this.jwtService.sign({id: user.id,});
+    const token = this.jwtService.sign({ id: user.id });
 
     return { token, user };
   }
@@ -64,14 +62,11 @@ export class AuthService {
       ...dto,
       hash,
     });
-
   }
-
 
   async me(user: User): Promise<NullableType<User>> {
     return this.usersService.getOne({
       id: user.id,
     });
   }
-
 }

@@ -14,7 +14,7 @@ import { AuthEmailLoginDto } from './dto/auth-email-login.dto';
 import { LoginResponseType } from '../utils/types/auth/login-response.type';
 import { User } from '../users/entities/user.entity';
 import { NullableType } from '../utils/types/nullable.type';
-import {AuthGuard} from "./guards/auth.guard";
+import { AuthGuard } from './guards/auth.guard';
 
 @ApiTags('Auth')
 @Controller({
@@ -39,5 +39,4 @@ export class AuthController {
   public me(@Request() request): Promise<NullableType<User>> {
     return this.service.me(request.user);
   }
-
 }
