@@ -8,6 +8,7 @@
 - [Links](#links)
 - [Database utils](#database-utils)
 - [Tests](#tests)
+- [Project Breakdown](https://github.com/iAmCodeHead/fudy-assignment/tree/master/docs)
 
 ## Features
 
@@ -99,10 +100,8 @@ npm run seed:run
 
 ## Tests
 
-[//]: # (```bash)
+```bash
+(# e2e tests)
 
-[//]: # (# e2e tests)
-
-[//]: # (npm run test:e2e)
-
-[//]: # (```)
+ (npm run test:e2e)
+```
