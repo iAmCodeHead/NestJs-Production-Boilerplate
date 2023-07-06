@@ -1,16 +1,30 @@
+version: '3.4'
+
 services:
   postgres:
     image: postgres:15-alpine
-    ports:
-      - ${DATABASE_PORT}:5432
-    volumes:
-      - ./.data/db:/var/lib/postgresql/data
     environment:
+      POSTGRES_HOST: ${DATABASE_HOST}
       POSTGRES_USERNAME: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
     networks:
       - app
+  migration:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    networks:
+      - app
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+    command: [ sh, -c, 'npm run migration:run' ]
+    volumes:
+      - .:/app:delegated
+      - /app/node_modules
   fudy:
     build:
       context: .
@@ -19,13 +33,15 @@ services:
     networks:
       - app
     ports:
-      - ${APP_PORT}:${APP_PORT}
+      - "3000:3000"
     depends_on:
       - postgres
+      - migration
     command: [sh, -c, 'npm run start:dev']
     volumes:
       - .:/app:delegated
       - /app/node_modules
+
 
 networks:
   app:
