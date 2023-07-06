@@ -3,6 +3,10 @@ version: '3.4'
 services:
   postgres:
     image: postgres:15-alpine
+    ports:
+      - ${DATABASE_PORT}:5432
+    volumes:
+      - ./.data/db:/var/lib/postgresql/data
     environment:
       POSTGRES_HOST: ${DATABASE_HOST}
       POSTGRES_USERNAME: ${DATABASE_USERNAME}
@@ -25,6 +29,24 @@ services:
     volumes:
       - .:/app:delegated
       - /app/node_modules
+  migration:
+    build:
+      context: .
+    command:
+      [
+        "./wait-for-it/wait-for-it.sh",
+        "postgres:5432",
+        "--",
+        "npm run migration:run"
+      ]
+    links:
+      - postgres
+    depends_on:
+      - postgres
+
+
+volumes:
+  pg_data: null
 
 
 networks:

@@ -34,8 +34,8 @@ async function bootstrap() {
   });
 
   const options = new DocumentBuilder()
-    .setTitle('API')
-    .setDescription('API docs')
+    .setTitle('Fudy Assessment API')
+    .setDescription('API docs for user authentication and profile retrieval')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

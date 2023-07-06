@@ -1,12 +1,20 @@
-ARG IMAGE=node:16.13-alpine
+FROM node:18.16.0-alpine
 
-#COMMON
-FROM $IMAGE as builder
-WORKDIR /app
-COPY . .
-RUN npm install
+RUN apk add --no-cache bash
+RUN npm i -g @nestjs/cli typescript ts-node
 
+COPY package*.json /tmp/app/
+RUN cd /tmp/app && npm install
 
-#DEVELOPMENT
-FROM builder as dev
-CMD [""]
+COPY . /usr/src/app
+RUN cp -a /tmp/app/node_modules /usr/src/app
+COPY ./wait_for_it.sh /opt/wait_for_it.sh
+COPY ./startup.dev.sh /opt/startup.dev.sh
+RUN sed -i 's/\r//g' /opt/wait_for_it.sh
+RUN sed -i 's/\r//g' /opt/startup.dev.sh
+
+WORKDIR /usr/src/app
+RUN cp env-example .env
+RUN npm run build
+
+CMD ["/opt/startup.dev.sh"]
