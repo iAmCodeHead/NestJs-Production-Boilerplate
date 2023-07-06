@@ -29,25 +29,6 @@ services:
     volumes:
       - .:/app:delegated
       - /app/node_modules
-  migration:
-    build:
-      context: .
-    command:
-      [
-        "./wait-for-it/wait-for-it.sh",
-        "postgres:5432",
-        "--",
-        "npm run migration:run"
-      ]
-    links:
-      - postgres
-    depends_on:
-      - postgres
-
-
-volumes:
-  pg_data: null
-
 
 networks:
   app:
