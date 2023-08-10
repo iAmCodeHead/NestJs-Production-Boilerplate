@@ -1,7 +1,7 @@
-# Fudy Assignment REST APIs
+# Nest Js Production ready REST APIs boiler plate
 
 Before you proceed, it's probably worth it to check the:
-- [Project Breakdown](https://github.com/iAmCodeHead/fudy-assignment/tree/master/docs)
+- [Project Breakdown](https://github.com/iAmCodeHead/NestJs-Production-Boilerplate/tree/master/docs)
 
 
 ## Table of Contents
@@ -27,7 +27,7 @@ Before you proceed, it's probably worth it to check the:
 ## Quick run
 
 ```bash
-git clone --depth 1 https://github.com/iAmCodeHead/fudy-assignment.git my-app
+git clone --depth 1 https://github.com/iAmCodeHead/NestJs-Production-Boilerplate.git my-app
 cd my-app/
 cp env-example .env
 docker compose up -d
@@ -42,7 +42,7 @@ docker compose logs
 ## Comfortable development
 
 ```bash
-git clone --depth 1 https://github.com/iAmCodeHead/fudy-assignment.git my-app
+git clone --depth 1 https://github.com/iAmCodeHead/NestJs-Production-Boilerplate.git my-app
 cd my-app/
 cp env-example .env
 ```
